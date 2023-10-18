@@ -5,6 +5,8 @@
 </head>
 <body>
   <script>
+    var previousState = false;
+
     window.addEventListener("gamepadconnected", function(e) {
       console.log("Gamepad connected!");
     });
@@ -14,9 +16,11 @@
       for (var i = 0; i < gamepads.length; i++) {
         var gamepad = gamepads[i];
         if (gamepad) {
-          if (gamepad.buttons[6].pressed) { // Change the index to match the left trigger button on your gamepad
+          var currentState = gamepad.buttons[6].pressed; // Change the index to match the left trigger button on your gamepad
+          if (currentState && !previousState) {
             alert("Gamepad functional.");
           }
+          previousState = currentState;
         }
       }
       requestAnimationFrame(gamepadLoop);
