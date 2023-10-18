@@ -5,22 +5,18 @@
 </head>
 <body>
   <script>
-    var previousState = false;
+    var gamepadIndex = 0; // Change this value if you have multiple gamepads connected
 
     window.addEventListener("gamepadconnected", function(e) {
       console.log("Gamepad connected!");
     });
 
     function gamepadLoop() {
-      var gamepads = navigator.getGamepads();
-      for (var i = 0; i < gamepads.length; i++) {
-        var gamepad = gamepads[i];
-        if (gamepad) {
-          var currentState = gamepad.buttons[6].pressed; // Change the index to match the left trigger button on your gamepad
-          if (currentState && !previousState) {
-            alert("Gamepad functional.");
-          }
-          previousState = currentState;
+      var gamepad = navigator.getGamepads()[gamepadIndex];
+      if (gamepad) {
+        var currentState = gamepad.buttons[6].pressed; // Change the index to match the left trigger button on your gamepad
+        if (currentState) {
+          alert("Gamepad functional.");
         }
       }
       requestAnimationFrame(gamepadLoop);
