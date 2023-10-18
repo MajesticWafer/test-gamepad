@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Gamepad Button Detection</title>
+  <title>Gamepad Trigger Detection</title>
 </head>
 <body>
   <script>
@@ -9,28 +9,20 @@
       console.log("Gamepad connected!");
     });
 
-    window.addEventListener("gamepaddisconnected", function(e) {
-      console.log("Gamepad disconnected!");
-    });
-
-    var previousState = false; // Flag to track previous state of the left stick button
-
-    function checkGamepad() {
+    function gamepadLoop() {
       var gamepads = navigator.getGamepads();
-      var gamepad = gamepads[0]; // Assuming only one gamepad is connected
-
-      var currentState = gamepad && gamepad.buttons[9].pressed; // Button10 is at index 9
-
-      if (currentState && !previousState) {
-        alert("Hello");
+      for (var i = 0; i < gamepads.length; i++) {
+        var gamepad = gamepads[i];
+        if (gamepad) {
+          if (gamepad.buttons[6].pressed) { // Change the index to match the left trigger button on your gamepad
+            alert("Gamepad functional.");
+          }
+        }
       }
-
-      previousState = currentState;
-
-      requestAnimationFrame(checkGamepad);
+      requestAnimationFrame(gamepadLoop);
     }
 
-    checkGamepad();
+    requestAnimationFrame(gamepadLoop);
   </script>
 </body>
 </html>
