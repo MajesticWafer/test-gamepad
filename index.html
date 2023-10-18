@@ -6,6 +6,8 @@
 <body>
   <script>
     var gamepadIndex = 0; // Change this value if you have multiple gamepads connected
+    var isTriggerPressed = false;
+    var isWaiting = false;
 
     window.addEventListener("gamepadconnected", function(e) {
       console.log("Gamepad connected!");
@@ -15,8 +17,16 @@
       var gamepad = navigator.getGamepads()[gamepadIndex];
       if (gamepad) {
         var currentState = gamepad.buttons[6].pressed; // Change the index to match the left trigger button on your gamepad
-        if (currentState) {
-          alert("Gamepad functional.");
+        if (currentState && !isTriggerPressed && !isWaiting) {
+          isTriggerPressed = true;
+          setTimeout(function() {
+            alert("Gamepad functional.");
+            isTriggerPressed = false;
+            isWaiting = true;
+            setTimeout(function() {
+              isWaiting = false;
+            }, 500); // Wait for an additional 0.5 seconds before updating again
+          }, 500); // Wait for 0.5 seconds before displaying the alert
         }
       }
       requestAnimationFrame(gamepadLoop);
