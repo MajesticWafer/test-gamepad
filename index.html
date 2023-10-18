@@ -13,13 +13,19 @@
       console.log("Gamepad disconnected!");
     });
 
+    var previousState = false; // Flag to track previous state of the left stick
+
     function checkGamepad() {
       var gamepads = navigator.getGamepads();
       var gamepad = gamepads[0]; // Assuming only one gamepad is connected
 
-      if (gamepad && gamepad.axes[0] < -0.5) { // Left stick horizontal axis
+      var currentState = gamepad && gamepad.axes[0] < -0.5; // Left stick horizontal axis
+
+      if (currentState && !previousState) {
         alert("Hello");
       }
+
+      previousState = currentState;
 
       requestAnimationFrame(checkGamepad);
     }
