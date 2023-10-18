@@ -17,7 +17,7 @@
       var gamepads = navigator.getGamepads();
       var gamepad = gamepads[0]; // Assuming only one gamepad is connected
 
-      if (gamepad && gamepad.buttons[9].pressed) { // Button10 is at index 9
+      if (gamepad && gamepad.axes[0] < -0.5) { // Left stick horizontal axis
         alert("Hello");
       }
 
